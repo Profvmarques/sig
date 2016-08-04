@@ -72,7 +72,7 @@ $(function () {
       </select></td>
     </tr>
     <tr>
-      <td><b>M&oacute;dulos </b></td>
+      <td><b>M&oacute;dulos :</b></td>
       <td><select name="idmodulos" id="idmodulos" class="input-larger" onchange="submit()">
           <option value="" selected="selected">Aguardando ...</option>
         </select>      </td>
