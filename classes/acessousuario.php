@@ -10,7 +10,7 @@
 require_once('acesso.php');
 require_once('logs.php');
 
-class Acessousuario {
+class AcessoUsuario {
 
 //Atributos da classe
     private $idmenu;

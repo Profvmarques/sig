@@ -64,7 +64,7 @@ $(function () {
   <table width="636" border="0" align="center" cellpadding="2" cellspacing="5">
     <tr>
       <td width="65"><b>Sistemas:</b></td>
-      <td width="526"><select name="idsistemas" id="idsistemas" onchange="" class="txt_campo">
+      <td width="526"><select name="idsistemas" id="idsistemas" onchange="" class="form-control">
           <option value="">Selecione sistema</option>
           <?php for($i=0;$i<$linha;$i++){?>
           <option value="<?php echo $rs[$i]['idsistemas'];?>"><?php echo $rs[$i]['descricao'];?></option>
@@ -73,7 +73,7 @@ $(function () {
     </tr>
     <tr>
       <td><b>M&oacute;dulos :</b></td>
-      <td><select name="idmodulos" id="idmodulos" class="input-larger" onchange="submit()">
+      <td><select name="idmodulos" id="idmodulos" class="form-control" onchange="submit()">
           <option value="" selected="selected">Aguardando ...</option>
         </select>      </td>
     </tr>
@@ -92,22 +92,22 @@ $(function () {
             <td colspan="6" bgcolor="#303641" class="textos_white"><div align="center"><strong><?php echo "Módulo : ".$rs3[0]['amod.nome'];?></strong></div></td>
           </tr>
           <tr bgcolor="#303641">
-            <td width="48"  class="textos_white"><strong>Id_pai</strong></td>
-            <td width="58" class="textos_white"><div align="center"><strong>Ordem</strong></div></td>
-            <td width="135" class="textos_white"><div align="center"><strong>Menu</strong></div></td>
-            <td width="101" class="textos_white"><div align="center"><strong>Classe css </strong></div></td>
+            <td width="47"  class="textos_white"><strong>Id_pai</strong></td>
+            <td width="57" class="textos_white"><div align="center"><strong>Ordem</strong></div></td>
+            <td width="258" class="textos_white"><div align="center"><strong>Menu</strong></div></td>
+            <td width="108" class="textos_white"><div align="center"><strong>Classe css </strong></div></td>
             <td colspan="2" class="textos_white"><div align="center"><strong>Link</strong></div></td>
 		  </tr>
             <?php 	  
 	    for($i=0;$i<$linha3;$i++){
 	  ?>
           <tr bgcolor="">
-            <td width="48" class="textos"><?php echo utf8_encode(mysql_result($rs3,$i,'am.id_pai'));?></td>
-            <td width="58" class="font_normal"><span class="textos"><?php echo utf8_encode(mysql_result($rs3,$i,'am.ordem_menu'));?></span></td>
-            <td width="135" class="font_normal"><span class="textos"><?php echo utf8_encode(mysql_result($rs3,$i,'am.nome_menu'));?></span></td>
-            <td width="101" class="font_normal"><span class="textos"><?php echo utf8_encode(mysql_result($rs3,$i,'am.class_css'));?></span></td>
-            <td width="350" class="font_normal"><span class="textos"><?php echo utf8_encode(mysql_result($rs3,$i,'am.link_menu'));?></span></td>
-			 <td width="20" class="font_normal"><a class="btn btn-small show-tooltip" title="Editar" href="default.php?pg=view/adm_menu/editar.php&form=Atualizar Cadastro de Menu&id=<?php echo mysql_result($rs3,$i,'am.idmenu');?>"><i class="icon-edit"></i></a></td>
+            <td width="47" class="textos" align="center"><?php echo ($rs3[$i]['id_pai']);?></td>
+            <td width="57" class="font_normal" align="center"><span class="textos"><?php echo ($rs3[$i]['ordem']);?></span></td>
+            <td width="258" class="font_normal"><span class="textos"><?php echo ($rs3[$i]['menu']);?></span></td>
+            <td width="108" class="font_normal" align="center"><span class="textos"><?php echo ($rs3[$i]['class']);?></span></td>
+            <td width="196" class="font_normal"><span class="textos"><?php echo ($rs3[$i]['url']);?></span></td>
+			 <td width="22" class="font_normal"><a class="btn btn-small show-tooltip" title="Editar" href="default.php?pg=view/adm_menu/editar.php&form=Atualizar Cadastro de Menu&id=<?php echo mysql_result($rs3,$i,'am.idmenu');?>"><i class="icon-edit"></i></a></td>
           </tr>
 		   <?php }?>
       </table>	  

@@ -22,6 +22,8 @@ function Processo($Processo) {
             require_once('classes/modulos.php');
             global $linha1;
             global $rs1;
+            global $linha3;
+            global $rs3;
 
             $modulos = new Modulos();
             $modulos->consultar("select * from sistemas order by descricao");
@@ -31,6 +33,14 @@ function Processo($Processo) {
             $modulos->consultar("select * from modulos order by descricao");
             $linha1 = $modulos->Linha;
             $rs1 = $modulos->Result;
+             if ($_POST['idmodulos'] != '') {
+
+                $modulos->consultar("select * from menu  inner join modulos ON(menu.idmodulos=modulos.idmodulos)
+where menu.idmodulos=" . $_POST['idmodulos'] . " order by menu.ordem");
+                $linha3 = $modulos->Linha;
+                $rs3 = $modulos->Result;
+ 
+            }
 
             if ($_POST['ok'] == 'true') {
                 try {
@@ -46,7 +56,7 @@ function Processo($Processo) {
                     }
                     $menu->consultar('COMMIT');
                     $util->msgbox('REGISTRO SALVO COM SUCESSO!');
-                    $util->redirecionamentopage('default.php?pg=' . base64_encode('view/menu/consulta.php') . '&titulo=' . base64_encode('Consulta de Menu'));
+                    $util->redirecionamentopage('default.php?pg=' . base64_encode('visao/menu/consulta.php') . '&titulo=' . base64_encode('Consulta de Menu'));
                 } catch (Exception $ex) {
                     $menu->consultar('ROLLBACK');
                     $util->msgbox('Falha de operacao');

@@ -3,11 +3,10 @@
 	<meta charset="iso-8859-1">
 <?php 
 session_start();
-require_once('classes/usuarios.php');
+require_once('classes/acessousuario.php');
 $url = $_SERVER['PHP_SELF'];
 $dir = explode("/", $url);
-$usuarios = new Usuarios();
-
+Processo('menu');
 
 if($_SESSION['idperfil']==1 && ($_GET['idsistemas']=='' || $_GET['idsistemas']==0 || $_SESSION['idsistemas']==0) ){?>	
           <li>
