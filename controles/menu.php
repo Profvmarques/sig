@@ -36,9 +36,14 @@ function Processo($Processo) {
                 try {
                     //Chamar  
                     $menu->consultar('BEGIN');
-                    $menu->incluir(
-                            $_POST['idmodulos'], $_POST['class'], $_POST['url'], $_POST['dtreg']
-                    );
+                    $i = 0;
+                    if (sizeof($_POST['id_pai']) > 0) {
+
+                        foreach ($_POST['id_pai'] as $i => $v) {
+                        $menu->incluir(
+                            $_POST['idmodulos'], $_POST['id_pai'][$i],$_POST['ordem'][$i],$_POST['menu'][$i], $_POST['class'][$i], $_POST['url'][$i]);
+                        }
+                    }
                     $menu->consultar('COMMIT');
                     $util->msgbox('REGISTRO SALVO COM SUCESSO!');
                     $util->redirecionamentopage('default.php?pg=' . base64_encode('view/menu/consulta.php') . '&titulo=' . base64_encode('Consulta de Menu'));
@@ -89,8 +94,8 @@ function Processo($Processo) {
 
                     $menu->consultar('BEGIN');
                     $menu->alterar(
-                            $_GET['id'], $_POST['idmodulos'], $_POST['class'], $_POST['url'], $_POST['dtreg']
-                    );
+                            $_GET['id'], $_POST['idmodulos'], $_POST['id_pai'],$_POST['ordem'],$_POST['menu'], $_POST['class'], $_POST['url']);
+                    
                     $descricao = "Atualização dos dados na tabela menu pelo usuário <b>" . $_SESSION['usuario'] . "</b> \n";
                     $funcionalidade = "Atualização de senha";
                     $data_hora = date('Y-m-d h:i:s');

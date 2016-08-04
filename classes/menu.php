@@ -15,15 +15,18 @@ class Menu {
 //Atributos da classe
     private $idmenu;
     private $idmodulos;
+    private $id_pai;
+    private $ordem;
+    private $menu;
     private $class;
     private $url;
     private $dtreg;
 
     //Insert
-    public function incluir($idmodulos, $class, $url, $dtreg) {
+    public function incluir($idmodulos, $id_pai, $ordem, $menu, $class, $url) {
         try {
             $dtreg = date('Y-m-d h:i:s');
-            $sql = 'insert into menu(idmodulos,class,url,dtreg) values( :idmodulos, :class, :url, :dtreg);';
+            $sql = 'insert into menu(idmodulos,id_pai,ordem,menu,class,url) values( :idmodulos, :id_pai, :ordem, :menu, :class, :url);';
             $sql = str_replace("'", "\'", $sql);
             $acesso = new Acesso();
             $pdo = $acesso->conexao();
@@ -32,9 +35,11 @@ class Menu {
             $stmt = $pdo->prepare($sql);
 
             $stmt->bindParam(':idmodulos', $idmodulos);
+            $stmt->bindParam(':id_pai', $id_pai);
+            $stmt->bindParam(':ordem', $ordem);            
+            $stmt->bindParam(':menu', $menu);
             $stmt->bindParam(':class', $class);
             $stmt->bindParam(':url', $url);
-            $stmt->bindParam(':dtreg', $dtreg);
             $stmt->execute();
 
             $logs = new Logs();
@@ -69,9 +74,9 @@ class Menu {
     }
 
     //Editar
-    public function alterar($idmenu, $idmodulos, $class, $url, $dtreg) {
+    public function alterar($idmenu, $idmodulos, $id_pai, $ordem, $menu, $class, $url) {
         try {
-            $sql = 'update menu set idmenu=:idmenu,idmodulos=:idmodulos,class=:class,url=:url,dtreg=:dtreg where idmenu= :idmenu';
+            $sql = 'update menu set idmenu=:idmenu,idmodulos=:idmodulos,id_pai=:id_pai, ordem=:ordem, menu=:menu,class=:class,url=:url where idmenu= :idmenu';
             $sql = str_replace("'", "\'", $sql);
             $acesso = new Acesso();
 
@@ -83,9 +88,11 @@ class Menu {
 
             $stmt->bindParam(':idmenu', $idmenu);
             $stmt->bindParam(':idmodulos', $idmodulos);
+            $stmt->bindParam(':id_pai', $id_pai);
+            $stmt->bindParam(':ordem', $ordem);            
+            $stmt->bindParam(':menu', $menu);
             $stmt->bindParam(':class', $class);
             $stmt->bindParam(':url', $url);
-            $stmt->bindParam(':dtreg', $dtreg);
             $stmt->execute();
 
             $logs = new Logs();

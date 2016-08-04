@@ -125,10 +125,10 @@ $(function () {
           </tr>
           <tr class="linhas">
             <td><input name="id_pai[]" type="text" id="id_pai[]" size="10" class="form-control col-md-1" /></td>
-            <td><input name="ordem_menu[]" type="text" id="ordem_menu[]" size="10" class="form-control col-md-1"/></td>
-            <td><input name="nome_menu[]" type="text" id="nome_menu[]" size="20" class="form-control col-md-3" /></td>
-            <td><input name="class_css[]" type="text" id="class_css[]" size="20" class="form-control col-md-3"/></td>
-            <td width="278"><input name="link_menu[]" type="text" id="link_menu[]" class="form-control col-md-6" size="60" /></td>
+            <td><input name="ordem[]" type="text" id="ordem[]" size="10" class="form-control col-md-1"/></td>
+            <td><input name="menu[]" type="text" id="menu[]" size="20" class="form-control col-md-3" /></td>
+            <td><input name="class[]" type="text" id="class[]" size="20" class="form-control col-md-3"/></td>
+            <td width="278"><input name="url[]" type="text" id="url[]" class="form-control col-md-6" size="60" /></td>
             <td width="110"><a href="#" class="removerCampo" title="Remover linha"><i class="entypo-minus-squared"></i><b>Remover</b></a></td>
           </tr>
           <tr>
