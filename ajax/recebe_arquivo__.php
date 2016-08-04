@@ -1,0 +1,18 @@
+<?php
+session_start();
+$diretorio = '../restrito2/temp/'; //diretorio dos arquivos enviados
+
+//montando o caminho para onde o arquivo enviado vai ser copiado
+$nome_imagem    = $_FILES['arquivo']['name'];
+$ext = strtolower(strrchr($nome_imagem,"."));
+$nome_atual = md5(uniqid(time())).$ext; 
+$caminho_arquivo = $diretorio .basename($_FILES['arquivo']['name']);
+$_SESSION['fototemp']=$_FILES['arquivo']['name'];
+
+//a funcao php move_uploaded_file copia os arquivos enviados para o caminho que você desejar 
+if (move_uploaded_file($_FILES['arquivo']['tmp_name'], $caminho_arquivo)) { 
+  echo "sucesso";//este 'sucesso' é o valor que vai estar no parametro resposta no código js
+} else {
+	echo "erro";//em caso de erro na copia do arquivo reposta vai ter o valor 'erro'
+}
+?>

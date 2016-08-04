@@ -1,0 +1,12 @@
+body {
+  padding-top: 50px;
+}
+.sgp-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+input[type="email"]:focus:invalid{
+	border: 1px solid red;
+	box-shadow: 0 0 5px red;
+}
