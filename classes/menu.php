@@ -20,13 +20,14 @@ class Menu {
     private $menu;
     private $class;
     private $url;
+    private $idmenuSubmissao;
     private $dtreg;
 
     //Insert
-    public function incluir($idmodulos, $id_pai, $ordem, $menu, $class, $url) {
+    public function incluir($idmodulos, $id_pai, $ordem, $menu, $class, $url, $idmenuSubmissao) {
         try {
             $dtreg = date('Y-m-d h:i:s');
-            $sql = 'insert into menu(idmodulos,id_pai,ordem,menu,class,url) values( :idmodulos, :id_pai, :ordem, :menu, :class, :url);';
+            $sql = 'insert into menu(idmodulos,id_pai,ordem,menu,class,url,idmenuSubmissao) values( :idmodulos, :id_pai, :ordem, :menu, :class, :url,:idmenuSubmissao);';
             $sql = str_replace("'", "\'", $sql);
             $acesso = new Acesso();
             $pdo = $acesso->conexao();
@@ -36,10 +37,11 @@ class Menu {
 
             $stmt->bindParam(':idmodulos', $idmodulos);
             $stmt->bindParam(':id_pai', $id_pai);
-            $stmt->bindParam(':ordem', $ordem);            
+            $stmt->bindParam(':ordem', $ordem);
             $stmt->bindParam(':menu', $menu);
             $stmt->bindParam(':class', $class);
             $stmt->bindParam(':url', $url);
+            $stmt->bindParam(':idmenuSubmissao', $idmenuSubmissao);
             $stmt->execute();
 
             $logs = new Logs();
@@ -74,9 +76,9 @@ class Menu {
     }
 
     //Editar
-    public function alterar($idmenu, $idmodulos, $id_pai, $ordem, $menu, $class, $url) {
+    public function alterar($idmenu, $idmodulos, $id_pai, $ordem, $menu, $class, $url, $idmenuSubmissao) {
         try {
-            $sql = 'update menu set idmenu=:idmenu,idmodulos=:idmodulos,id_pai=:id_pai, ordem=:ordem, menu=:menu,class=:class,url=:url where idmenu= :idmenu';
+            $sql = 'update menu set idmenu=:idmenu,idmodulos=:idmodulos,id_pai=:id_pai, ordem=:ordem, menu=:menu,class=:class,url=:url, idmenuSubmissao= :idmenuSubmissao where idmenu= :idmenu';
             $sql = str_replace("'", "\'", $sql);
             $acesso = new Acesso();
 
@@ -89,10 +91,11 @@ class Menu {
             $stmt->bindParam(':idmenu', $idmenu);
             $stmt->bindParam(':idmodulos', $idmodulos);
             $stmt->bindParam(':id_pai', $id_pai);
-            $stmt->bindParam(':ordem', $ordem);            
+            $stmt->bindParam(':ordem', $ordem);
             $stmt->bindParam(':menu', $menu);
             $stmt->bindParam(':class', $class);
             $stmt->bindParam(':url', $url);
+            $stmt->bindParam(':idmenuSubmissao', $idmenuSubmissao);
             $stmt->execute();
 
             $logs = new Logs();
@@ -108,6 +111,23 @@ class Menu {
         $acesso->query($sql);
         $this->Linha = $acesso->linha;
         $this->Result = $acesso->result;
+    }
+
+    public function obterDescricaoHierarquica($idmenuSubmissao) {
+        $acesso = new Acesso();
+        $acesso->conexao();
+        if($idmenuSubmissao>0){
+        $sql = "select * from menu where idmenu=".$idmenuSubmissao;
+        $acesso->query($sql);
+        $this->Linha = $acesso->linha;
+        $rs = $acesso->result;
+
+        $menu = $rs[0]['menu'];
+        }else{
+          $menu = "------";  
+        }
+        
+        return $menu;
     }
 
 }

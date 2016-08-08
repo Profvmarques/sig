@@ -61,7 +61,7 @@ $(function () {
 </style>
 
 <form id="form" name="form" method="post" action="">
-  <table width="636" border="0" align="center" cellpadding="2" cellspacing="5">
+  <table width="1038" border="0" align="center" cellpadding="2" cellspacing="5">
     <tr>
       <td width="65"><b>Sistemas:</b></td>
       <td width="526"><select name="idsistemas" id="idsistemas" onchange="" class="form-control">
@@ -86,53 +86,63 @@ $(function () {
     <tr>
       <td colspan="2"><br />
 	  <?php if($_POST['idsistemas']!='' && $_POST['idmodulos']!=''){	  ?>
-	  <table width="714" border="0">
+	  <table width="1014" border="0">
 	  
           <tr bgcolor="#303641">
-            <td colspan="6" bgcolor="#303641" class="textos_white"><div align="center"><strong><?php echo "Módulo : ".$rs3[0]['amod.nome'];?></strong></div></td>
+            <td colspan="7" bgcolor="#303641" class="textos_white"><div align="center"><strong><?php echo "Módulo : ".$rs3[0]['amod.nome'];?></strong></div></td>
           </tr>
           <tr bgcolor="#303641">
-            <td width="47"  class="textos_white"><strong>Id_pai</strong></td>
-            <td width="57" class="textos_white"><div align="center"><strong>Ordem</strong></div></td>
-            <td width="258" class="textos_white"><div align="center"><strong>Menu</strong></div></td>
-            <td width="108" class="textos_white"><div align="center"><strong>Classe css </strong></div></td>
+            <td width="61"  class="textos_white"><strong>Id_pai</strong></td>
+            <td width="73" class="textos_white"><strong>Ordem</strong></td>
+            <td width="220" class="textos_white"><div align="center"><strong>Submiss&atilde;o</strong></div></td>
+            <td width="203" class="textos_white"><div align="center"><strong>Menu</strong></div></td>
+            <td width="122" class="textos_white"><div align="center"><strong>Classe css </strong></div></td>
             <td colspan="2" class="textos_white"><div align="center"><strong>Link</strong></div></td>
 		  </tr>
             <?php 	  
 	    for($i=0;$i<$linha3;$i++){
 	  ?>
           <tr bgcolor="">
-            <td width="47" class="textos" align="center"><?php echo ($rs3[$i]['id_pai']);?></td>
-            <td width="57" class="font_normal" align="center"><span class="textos"><?php echo ($rs3[$i]['ordem']);?></span></td>
-            <td width="258" class="font_normal"><span class="textos"><?php echo ($rs3[$i]['menu']);?></span></td>
-            <td width="108" class="font_normal" align="center"><span class="textos"><?php echo ($rs3[$i]['class']);?></span></td>
-            <td width="196" class="font_normal"><span class="textos"><?php echo ($rs3[$i]['url']);?></span></td>
-			 <td width="22" class="font_normal"><a class="btn btn-small show-tooltip" title="Editar" href="default.php?pg=view/adm_menu/editar.php&form=Atualizar Cadastro de Menu&id=<?php echo mysql_result($rs3,$i,'am.idmenu');?>"><i class="icon-edit"></i></a></td>
+            <td width="61" class="textos" align="center"><?php echo ($rs3[$i]['id_pai']);?></td>
+            <td width="73" class="font_normal" align="center"><span class="textos"><?php echo ($rs3[$i]['ordem']);?></span></td>
+            <td width="220" class="font_normal" align="center"><span class="textos"><?php echo $array[$i]['menu'];?></span></td>
+            <td width="203" class="font_normal"><span class="textos"><?php echo ($rs3[$i]['menu']);?></span></td>
+            <td width="122" class="font_normal" align="center"><span class="textos"><?php echo ($rs3[$i]['class']);?></span></td>
+            <td width="218" class="font_normal"><span class="textos"><?php echo ($rs3[$i]['url']);?></span></td>
+			 <td width="87" class="font_normal"><a class="btn btn-small show-tooltip" title="Editar" href="default.php?pg=view/adm_menu/editar.php&form=Atualizar Cadastro de Menu&id=<?php echo mysql_result($rs3,$i,'am.idmenu');?>"><i class="entypo-doc-text-inv"></i><b>Atualizar</b></a></td>
           </tr>
 		   <?php }?>
       </table>	  
 	  <br />
-	    <table width="714" border="0" cellpadding="2" cellspacing="4">
+	    <table width="1014" border="0" cellpadding="2" cellspacing="4">
           <tr>
-            <td colspan="6" class="textos_white">Adicionando Menu </td>
+            <td colspan="7" class="textos_white">Adicionando Menu </td>
           </tr>
           <tr>
-            <td width="60" bgcolor="#303641" class="textos_white">Id_pai</td>
-            <td width="60" bgcolor="#303641" class="textos_white">Ordem</td>
-            <td width="124" bgcolor="#303641" class="textos_white">Menu</td>
-            <td width="124" bgcolor="#303641" class="textos_white">Classe css </td>
+            <td width="62" bgcolor="#303641" class="textos_white">Id_pai</td>
+            <td width="62" bgcolor="#303641" class="textos_white">Ordem</td>
+            <td width="125" bgcolor="#303641" class="textos_white">Submiss&atilde;o</td>
+            <td width="127" bgcolor="#303641" class="textos_white">Menu</td>
+            <td width="137" bgcolor="#303641" class="textos_white">Classe css </td>
             <td colspan="2" bgcolor="#303641" class="textos_white">Link</td>
           </tr>
           <tr class="linhas">
             <td><input name="id_pai[]" type="text" id="id_pai[]" size="10" class="form-control col-md-1" /></td>
             <td><input name="ordem[]" type="text" id="ordem[]" size="10" class="form-control col-md-1"/></td>
+            <td><select name="idmenuSubmissao[]" id="idmenuSubmissao[]" class="form-control" >
+              <option value="" selected="selected">Nenhum</option>
+              <?php for($i=0;$i<$linha4;$i++){?>
+              
+              <option value="<?php echo $rs4[$i]['idmenu']?>"><?php echo $rs4[$i]['id_pai']." - ".$rs4[$i]['menu'];?></option>
+              <?php }?>
+            </select></td>
             <td><input name="menu[]" type="text" id="menu[]" size="20" class="form-control col-md-3" /></td>
             <td><input name="class[]" type="text" id="class[]" size="20" class="form-control col-md-3"/></td>
-            <td width="278"><input name="url[]" type="text" id="url[]" class="form-control col-md-6" size="60" /></td>
-            <td width="110"><a href="#" class="removerCampo" title="Remover linha"><i class="entypo-minus-squared"></i><b>Remover</b></a></td>
+            <td width="360"><input name="url[]" type="text" id="url[]" class="form-control col-md-6" size="60" /></td>
+            <td width="81"><a href="#" class="removerCampo" title="Remover linha"><i class="entypo-minus-squared"></i><b>Remover</b></a></td>
           </tr>
           <tr>
-            <td colspan="6"><a href="#" class="adicionarCampo" title="Adicionar item"><i class="entypo-plus-squared"></i><b>Adicionar</b></a> </td>
+            <td colspan="7"><a href="#" class="adicionarCampo" title="Adicionar item"><i class="entypo-plus-squared"></i><b>Adicionar</b></a> </td>
           </tr>
         </table></td>
     </tr>

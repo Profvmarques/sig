@@ -24,22 +24,34 @@ function Processo($Processo) {
             global $rs1;
             global $linha3;
             global $rs3;
+            global $linha4;
+            global $rs4;
 
-            $modulos = new Modulos();
-            $modulos->consultar("select * from sistemas order by descricao");
-            $linha = $modulos->Linha;
-            $rs = $modulos->Result;            
-            
-            $modulos->consultar("select * from modulos order by descricao");
-            $linha1 = $modulos->Linha;
-            $rs1 = $modulos->Result;
-             if ($_POST['idmodulos'] != '') {
+            global $array;
 
-                $modulos->consultar("select * from menu  inner join modulos ON(menu.idmodulos=modulos.idmodulos)
+            $menu->consultar("select * from sistemas order by descricao");
+            $linha = $menu->Linha;
+            $rs = $menu->Result;
+
+            $menu->consultar("select * from modulos order by descricao");
+            $linha1 = $menu->Linha;
+            $rs1 = $menu->Result;
+            if ($_POST['idmodulos'] != '') {
+
+                $menu->consultar("select * from menu  inner join modulos ON(menu.idmodulos=modulos.idmodulos)
 where menu.idmodulos=" . $_POST['idmodulos'] . " order by menu.ordem");
-                $linha3 = $modulos->Linha;
-                $rs3 = $modulos->Result;
- 
+                $linha3 = $menu->Linha;
+                $rs3 = $menu->Result;
+
+                for ($i = 0; $i < $linha3; $i++) {
+                    $idmenuSubmissao = $rs3[$i]['idmenuSubmissao'];
+                    $array[$i]['menu'] = $menu->obterDescricaoHierarquica($idmenuSubmissao);
+                }
+
+                $menu->consultar("select * from menu  inner join modulos ON(menu.idmodulos=modulos.idmodulos)
+where menu.idmodulos=" . $_POST['idmodulos'] . " order by menu.ordem");
+                $linha4 = $menu->Linha;
+                $rs4 = $menu->Result;
             }
 
             if ($_POST['ok'] == 'true') {
@@ -50,8 +62,8 @@ where menu.idmodulos=" . $_POST['idmodulos'] . " order by menu.ordem");
                     if (sizeof($_POST['id_pai']) > 0) {
 
                         foreach ($_POST['id_pai'] as $i => $v) {
-                        $menu->incluir(
-                            $_POST['idmodulos'], $_POST['id_pai'][$i],$_POST['ordem'][$i],$_POST['menu'][$i], $_POST['class'][$i], $_POST['url'][$i]);
+                            $menu->incluir(
+                                    $_POST['idmodulos'], $_POST['id_pai'][$i], $_POST['ordem'][$i], $_POST['menu'][$i], $_POST['class'][$i], $_POST['url'][$i], $_POST['idmenuSubmissao'][$i]);
                         }
                     }
                     $menu->consultar('COMMIT');
@@ -93,10 +105,10 @@ where menu.idmodulos=" . $_POST['idmodulos'] . " order by menu.ordem");
             $linhaEditar = $menu->Linha;
             $rsEditar = $menu->Result;
 
-            $modulos = new Modulos();
-            $modulos->consultar("select * from modulos order by descricao");
-            $linha1 = $modulos->Linha;
-            $rs1 = $modulos->Result;
+            $menu = new Modulos();
+            $menu->consultar("select * from modulos order by descricao");
+            $linha1 = $menu->Linha;
+            $rs1 = $menu->Result;
 
 
             if ($_POST['ok'] == 'true') {
@@ -104,8 +116,8 @@ where menu.idmodulos=" . $_POST['idmodulos'] . " order by menu.ordem");
 
                     $menu->consultar('BEGIN');
                     $menu->alterar(
-                            $_GET['id'], $_POST['idmodulos'], $_POST['id_pai'],$_POST['ordem'],$_POST['menu'], $_POST['class'], $_POST['url']);
-                    
+                            $_GET['id'], $_POST['idmodulos'], $_POST['id_pai'], $_POST['ordem'], $_POST['menu'], $_POST['class'], $_POST['url'], $_POST['idmenuSubmissao'][$i]);
+
                     $descricao = "Atualização dos dados na tabela menu pelo usuário <b>" . $_SESSION['usuario'] . "</b> \n";
                     $funcionalidade = "Atualização de senha";
                     $data_hora = date('Y-m-d h:i:s');
@@ -113,7 +125,7 @@ where menu.idmodulos=" . $_POST['idmodulos'] . " order by menu.ordem");
 
                     $menu->consultar('COMMIT');
                     $util->msgbox('REGISTRO SALVO COM SUCESSO!');
-                    $util->redirecionamentopage('default.php?pg=' . base64_encode('view/menu/consulta.php') . '&titulo=' . base64_encode('Consulta de Menu'));
+                    $util->redirecionamentopage('default.php?pg=' . base64_encode('visao/menu/consulta.php') . '&titulo=' . base64_encode('Consulta de Menu'));
                 } catch (Exception $ex) {
                     $menu->consultar('ROLLBACK');
                     $util->msgbox('Falha de operacao');
