@@ -4,6 +4,7 @@ session_start();
 require_once('classes/acessousuario.php');
 require_once('classes/util.php');
 require_once('classes/ocorrencias.php');
+
 //echo "default.php?pg=".base64_encode('visao/menu/incluir.php')."&titulo=".  base64_encode('Cadastro de Menu');
 function ProcessoAcessoUsuario($Processo) {
     /* Atributos Globais */
@@ -37,7 +38,7 @@ configuracao.consultar as cconsultar, configuracao.alterar as calterar, configur
 from perfil inner join configuracao ON(perfil.idperfil=configuracao.idperfil) 
 inner join menu on(menu.idmenu=configuracao.idmenu) 
 inner join usuarios on (usuarios.idperfil=perfil.idperfil) 
-inner join acessousuario on(acessousuario.idmenu=configuracao.idmenu and acessousuario.idusuarios=".$_SESSION['idusuarios'].")  
+inner join acessousuario on(acessousuario.idmenu=configuracao.idmenu and acessousuario.idusuarios=" . $_SESSION['idusuarios'] . ")  
 inner join modulos on(modulos.idmodulos=menu.idmodulos) 
 inner join sistemas on(sistemas.idsistemas=modulos.idsistemas) 
 where menu.id_pai=0 and menu.publico=1 
@@ -79,11 +80,11 @@ configuracao.consultar as cconsultar, configuracao.alterar as calterar, configur
 from perfil inner join configuracao ON(perfil.idperfil=configuracao.idperfil) 
 inner join menu on(menu.idmenu=configuracao.idmenu) 
 inner join usuarios on (usuarios.idperfil=perfil.idperfil) 
-inner join acessousuario on(acessousuario.idmenu=configuracao.idmenu and acessousuario.idusuarios=".$_SESSION['idusuarios'].")  
+inner join acessousuario on(acessousuario.idmenu=configuracao.idmenu and acessousuario.idusuarios=" . $_SESSION['idusuarios'] . ")  
 inner join modulos on(modulos.idmodulos=menu.idmodulos) 
 inner join sistemas on(sistemas.idsistemas=modulos.idsistemas) 
-where menu.id_pai=1 and menu.publico=1 and menu.idmodulos=".$array[$i]['idmodulos']." and modulos.idsistemas=".$array[$i]['idsistemas']."
-and configuracao.publico=1 and acessousuario.publico=1 and menu.idmenuSubmissao=".$array[$i]['idmenu']." group by configuracao.idmenu ORDER BY menu.ordem;");
+where menu.id_pai=1 and menu.publico=1 and menu.idmodulos=" . $array[$i]['idmodulos'] . " and modulos.idsistemas=" . $array[$i]['idsistemas'] . "
+and configuracao.publico=1 and acessousuario.publico=1 and menu.idmenuSubmissao=" . $array[$i]['idmenu'] . " group by configuracao.idmenu ORDER BY menu.ordem;");
                 $linhaSm1 = $acessousuario->Linha;
                 $rsSm1 = $acessousuario->Result;
 
@@ -120,11 +121,11 @@ configuracao.consultar as cconsultar, configuracao.alterar as calterar, configur
 from perfil inner join configuracao ON(perfil.idperfil=configuracao.idperfil) 
 inner join menu on(menu.idmenu=configuracao.idmenu) 
 inner join usuarios on (usuarios.idperfil=perfil.idperfil) 
-inner join acessousuario on(acessousuario.idmenu=configuracao.idmenu and acessousuario.idusuarios=".$_SESSION['idusuarios'].")  
+inner join acessousuario on(acessousuario.idmenu=configuracao.idmenu and acessousuario.idusuarios=" . $_SESSION['idusuarios'] . ")  
 inner join modulos on(modulos.idmodulos=menu.idmodulos) 
 inner join sistemas on(sistemas.idsistemas=modulos.idsistemas) 
-where menu.id_pai=2 and menu.publico=1 and menu.idmodulos=".$array1[$i]['idmodulos']." and modulos.idsistemas=".$array1[$i]['idsistemas']."
-and configuracao.publico=1 and acessousuario.publico=1 and menu.idmenuSubmissao=".$array1[$i]['idmenu']." group by configuracao.idmenu ORDER BY menu.ordem;");
+where menu.id_pai=2 and menu.publico=1 and menu.idmodulos=" . $array1[$i]['idmodulos'] . " and modulos.idsistemas=" . $array1[$i]['idsistemas'] . "
+and configuracao.publico=1 and acessousuario.publico=1 and menu.idmenuSubmissao=" . $array1[$a]['idmenu'] . " group by configuracao.idmenu ORDER BY menu.ordem;");
                     $linhaSm2 = $acessousuario->Linha;
                     $rsSm2 = $acessousuario->Result;
 
