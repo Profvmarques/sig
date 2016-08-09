@@ -17,10 +17,11 @@ if($_SESSION['idperfil']==1 && ($_GET['idsistemas']=='' || $_GET['idsistemas']==
 					<i class="<?php echo $array[$i]['class'];?>"></i>
 					<span><?php echo $array[$i]['menu'];?></span>
 				</a>
-<?php } ?>
+
 			 <?php if($linhaSm1>0){?>	
                 <ul>
-                  <?php for($a = 0; $a < $linhaSm1; $a++) {?>
+                  <?php for($a = 0; $a < $linhaSm1; $a++) {
+					  ?>
 					<li>
 					 <a href="<?php echo $array1[$a]['url'];?>">
 						<i class="<?php echo $array1[$a]['class'];?>"></i><span><?php echo $array1[$a]['menu'];?></span>
@@ -42,7 +43,7 @@ if($_SESSION['idperfil']==1 && ($_GET['idsistemas']=='' || $_GET['idsistemas']==
 				</ul>
              <?php }// fim if Sm1?>
 			</li>
-	
+        <?php }// fim for pai ?>	
 			
 	<?php } ?>			
 

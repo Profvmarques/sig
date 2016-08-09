@@ -30,7 +30,7 @@ function ProcessoAcessoUsuario($Processo) {
             global $array1;
             global $array2;
 
-            $acessousuario->consultar("select menu.idmenu,menu.menu, menu.url,menu.class,menu.idmodulos,menu.class,menu.id_pai, menu.publico, 
+            $acessousuario->consultar("select menu.idmenuSubmissao,menu.idmenu,menu.menu, menu.url,menu.class,menu.idmodulos,menu.class,menu.id_pai, menu.publico, 
 menu.ordem, acessousuario.idusuarios as idusu, sistemas.idsistemas as idsis, acessousuario.incluir as aincluir, 
 acessousuario.consultar as aconsultar, acessousuario.alterar as aalterar, acessousuario.excluir as aexcluir,
 configuracao.incluir as cincluir, 
@@ -72,7 +72,7 @@ and configuracao.publico=1 and acessousuario.publico=1 group by configuracao.idm
                 $array[$i]['Cexcluir'] = $rsPai[$i]['cexcluir'];
 
                 /* ---------------------------------subMenu1----------------------------------------------------- */
-                $acessousuario->consultar("select menu.idmenu,menu.menu, menu.url,menu.class,menu.idmodulos,menu.class,menu.id_pai, menu.publico, 
+                $acessousuario->consultar("select menu.idmenuSubmissao,menu.idmenu,menu.menu, menu.url,menu.class,menu.idmodulos,menu.class,menu.id_pai, menu.publico, 
 menu.ordem, acessousuario.idusuarios as idusu, sistemas.idsistemas as idsis, acessousuario.incluir as aincluir, 
 acessousuario.consultar as aconsultar, acessousuario.alterar as aalterar, acessousuario.excluir as aexcluir,
 configuracao.incluir as cincluir, 
@@ -84,7 +84,7 @@ inner join acessousuario on(acessousuario.idmenu=configuracao.idmenu and acessou
 inner join modulos on(modulos.idmodulos=menu.idmodulos) 
 inner join sistemas on(sistemas.idsistemas=modulos.idsistemas) 
 where menu.id_pai=1 and menu.publico=1 and menu.idmodulos=" . $array[$i]['idmodulos'] . " and modulos.idsistemas=" . $array[$i]['idsistemas'] . "
-and configuracao.publico=1 and acessousuario.publico=1 and menu.idmenuSubmissao=" . $array[$i]['idmenu'] . " group by configuracao.idmenu ORDER BY menu.ordem;");
+and configuracao.publico=1 and acessousuario.publico=1 and menu.idmenuSubmissao=" .$array[$i]['idmenu'] . " group by configuracao.idmenu ORDER BY menu.ordem;");
                 $linhaSm1 = $acessousuario->Linha;
                 $rsSm1 = $acessousuario->Result;
 
@@ -113,7 +113,7 @@ and configuracao.publico=1 and acessousuario.publico=1 and menu.idmenuSubmissao=
                     $array1[$a]['Cexcluir'] = $rsSm1[$a]['cexcluir'];
 
                     /* ---------------------------------subMenu2----------------------------------------------------- */
-                    $acessousuario->consultar("select menu.idmenu,menu.menu, menu.url,menu.class,menu.idmodulos,menu.class,menu.id_pai, menu.publico, 
+                    $acessousuario->consultar("select menu.idmenuSubmissao,menu.idmenu,menu.menu, menu.url,menu.class,menu.idmodulos,menu.class,menu.id_pai, menu.publico, 
 menu.ordem, acessousuario.idusuarios as idusu, sistemas.idsistemas as idsis, acessousuario.incluir as aincluir, 
 acessousuario.consultar as aconsultar, acessousuario.alterar as aalterar, acessousuario.excluir as aexcluir,
 configuracao.incluir as cincluir, 
@@ -155,6 +155,7 @@ and configuracao.publico=1 and acessousuario.publico=1 and menu.idmenuSubmissao=
                     }
                 }
             }
+           
             break;
 
         /* incluir */
