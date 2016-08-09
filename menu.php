@@ -8,9 +8,8 @@
     $dir = explode("/", $url);
     ProcessoAcessoUsuario('menu');
 
-    if ($_SESSION['idperfil'] == 1 && ($_GET['idsistemas'] == '' || $_GET['idsistemas'] == 0 || $_SESSION['idsistemas'] == 0)) {
-
-        for ($i = 0; $i < $linhaPai; $i++) {
+    if($_SESSION['idperfil'] == 1 && ($_GET['idsistemas'] == '' || $_GET['idsistemas'] == 0 || $_SESSION['idsistemas'] == 0)){
+        for($i = 0; $i < $linhaPai; $i++){
             ?>
             <li>
                 <a href="<?php echo $array[$i]['url']; ?>">
@@ -21,8 +20,8 @@
                 <?php if ($linhaSm1 > 0) { ?>	
                     <ul>
                         <?php
-                        for ($a = 0; $a < $linhaSm1; $a++) {
-                            if ($array1[$a]['idmenuSubmissao'] == $array[$i]['idmenu']) {
+                        for ($a = 0; $a < $linhaSm1; $a++){
+                            if ($array1[$a]['idmenuSubmissao'] == $array[$i]['idmenu']){
                                 ?>
                                 <li>
                                     <a href="<?php echo $array1[$a]['url']; ?>">

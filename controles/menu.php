@@ -2,6 +2,7 @@
 
 session_start();
 require_once('classes/menu.php');
+require_once('classes/modulos.php');
 require_once('classes/util.php');
 require_once('classes/ocorrencias.php');
 
@@ -26,7 +27,7 @@ function Processo($Processo) {
             global $rs3;
             global $linha4;
             global $rs4;
-
+            global $modulo;
             global $array;
 
             $menu->consultar("select * from sistemas order by descricao");
@@ -42,6 +43,8 @@ function Processo($Processo) {
 where menu.idmodulos=" . $_POST['idmodulos'] . " order by menu.ordem");
                 $linha3 = $menu->Linha;
                 $rs3 = $menu->Result;
+                $modulos = new Modulos();
+                $modulo = $modulos->obterDescricaoModulo($_POST['idmodulos']);
 
                 for ($i = 0; $i < $linha3; $i++) {
                     $idmenuSubmissao = $rs3[$i]['idmenuSubmissao'];
@@ -62,8 +65,11 @@ where menu.idmodulos=" . $_POST['idmodulos'] . " order by menu.ordem");
                     if (sizeof($_POST['id_pai']) > 0) {
 
                         foreach ($_POST['id_pai'] as $i => $v) {
+
+                            $url['url'][$i] = 'default.php?pg=' . base64_encode($_POST['pagina']);
+                            $url['url'][$i].='&titulo=' . base64_encode($_POST['titulo']);
                             $menu->incluir(
-                                    $_POST['idmodulos'], $_POST['id_pai'][$i], $_POST['ordem'][$i], $_POST['menu'][$i], $_POST['class'][$i], $_POST['url'][$i], $_POST['idmenuSubmissao'][$i]);
+                                    $_POST['idmodulos'], $_POST['id_pai'][$i], $_POST['ordem'][$i], $_POST['menu'][$i], $_POST['class'][$i], $url['url'][$i], $_POST['idmenuSubmissao'][$i], 1);
                         }
                     }
                     $menu->consultar('COMMIT');
@@ -115,8 +121,10 @@ where menu.idmodulos=" . $_POST['idmodulos'] . " order by menu.ordem");
                 try {
 
                     $menu->consultar('BEGIN');
+                    $url = 'default.php?pg=' . base64_encode($_POST['pagina']);
+                    $url.='&titulo=' . base64_encode($_POST['titulo']);
                     $menu->alterar(
-                            $_GET['id'], $_POST['idmodulos'], $_POST['id_pai'], $_POST['ordem'], $_POST['menu'], $_POST['class'], $_POST['url'], $_POST['idmenuSubmissao'][$i]);
+                            $_GET['id'], $_POST['idmodulos'], $_POST['id_pai'], $_POST['ordem'], $_POST['menu'], $_POST['class'], $url, $_POST['idmenuSubmissao'][$i]);
 
                     $descricao = "Atualização dos dados na tabela menu pelo usuário <b>" . $_SESSION['usuario'] . "</b> \n";
                     $funcionalidade = "Atualização de senha";

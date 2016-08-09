@@ -4,15 +4,15 @@ Processo('incluir');
 ?>
 <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript">
- // COMENT¡RIO DESSA FUN«√O *********************************
+ // COMENT√ÅRIO DESSA FUN√á√ÉO *********************************
       $(document).ready(function(){
         // Evento change no campo idsistemas  
          $("select[name=idsistemas]").change(function(){
             // Exibimos no campo idapartamentos antes de concluirmos
-			$("select[name=idmodulos]").html('<option value="">Carregando MÛdulos...</option>');
-            // Exibimos o campo sistemas antes de selecionamos o mÛdulo, serve tambÈm em caso
+			$("select[name=idmodulos]").html('<option value="">Carregando M√≥dulos...</option>');
+            // Exibimos o campo sistemas antes de selecionamos o m√≥dulo, serve tamb√©m em caso
 			// do usuario ja ter selecionado o tipo e resolveu trocar, com isso limpamos a
-			// seleÁ„o antiga caso tenha feito.
+			// sele√ß√£o antiga caso tenha feito.
 			// Passando tipo por parametro para a pagina ajax_modulos.php
             $.post("ajax/ajax_modulos.php",
                   {idsistemas:$(this).val()},
@@ -23,7 +23,7 @@ Processo('incluir');
                   )
          });
 	  });      	  
-	   // COMENT¡RIO DESSA FUN«√O *********************************
+	   // COMENT√ÅRIO DESSA FUN√á√ÉO *********************************
 </script>
 
 <script type="text/javascript">
@@ -89,7 +89,7 @@ $(function () {
 	  <table width="1014" border="0">
 	  
           <tr bgcolor="#303641">
-            <td colspan="7" bgcolor="#303641" class="textos_white"><div align="center"><strong><?php echo "MÛdulo : ".$modulo;?></strong></div></td>
+            <td colspan="7" bgcolor="#303641" class="textos_white"><div align="center"><strong><?php echo "M√≥dulo : ".$modulo;?></strong></div></td>
           </tr>
           <tr bgcolor="#303641">
             <td width="61"  class="textos_white"><strong>Id_pai</strong></td>

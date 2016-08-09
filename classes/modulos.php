@@ -100,6 +100,22 @@ class Modulos {
         $this->Result = $acesso->result;
     }
 
+    public function obterDescricaoModulo($idmodulos) {
+        $acesso = new Acesso();
+        $acesso->conexao();
+        if ($idmodulos > 0) {
+            $sql = "select * from modulos where idmodulos=".$idmodulos;
+            $acesso->query($sql);
+            $this->Linha = $acesso->linha;
+            $rs = $acesso->result;
+
+            $modulo = $rs[0]['sigla_modulo']." - ".$rs[0]['descricao'];
+        } else {
+            $modulo="------";
+        }
+        return $modulo;
+    }
+
 }
 
 ?>
