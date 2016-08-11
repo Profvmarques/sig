@@ -1,5 +1,4 @@
 <?php
-
 require_once('../classes/acesso.php');
 $Acesso = new Acesso();
 $Acesso->Conexao();

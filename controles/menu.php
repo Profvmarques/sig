@@ -29,7 +29,7 @@ function Processo($Processo) {
             global $rs4;
             global $modulo;
             global $array;
-
+//echo 'default.php?pg=' . base64_encode('visao/configuracao/incluir.php') . '&titulo=' . base64_encode('Cadastro Permissão de Perfil de Usuário');
             $menu->consultar("select * from sistemas order by descricao");
             $linha = $menu->Linha;
             $rs = $menu->Result;
