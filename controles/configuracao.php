@@ -36,7 +36,8 @@ function Processo($Processo) {
             if ($_POST['acao'] == 'consultar') {
                 $configuracao->consultar("select modulos.descricao as modulo, menu.* from perfil inner join configuracao on(configuracao.idperfil=perfil.idperfil) 
 inner join menu on(menu.idmenu=configuracao.idmenu) 
-inner join modulos on(modulos.idmodulos=menu.idmodulos)
+inner join modulos on(modulos.idmodulos=menu.idmodulos) 
+where configuracao.idperfil=".$_POST['idperfil']." and modulos.idsistemas=".$_POST['idsistemas']."
 order by modulos.idmodulos,menu.ordem;");
                 $linha2 = $configuracao->Linha;
                 $rs2 = $configuracao->Result;

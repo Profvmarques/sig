@@ -26,12 +26,12 @@ Processo('incluir');
         <option value="<?php echo $rs[$i]['idsistemas'];?>"><?php echo $rs[$i]['descricao'];?></option>
         <?php }?>
       </select></td>
-      <td width="94" rowspan="2"><button type="button" class="btn btn-primary" onclick="document.form.acao.value='consultar';"> </i> CONSULTAR</button>
+      <td width="94" rowspan="2"><button type="button" class="btn btn-primary" onclick="document.form.acao.value='consultar', submit();"> </i> CONSULTAR</button>
       <input type="hidden" name="acao" id="acao" /></td>
     </tr>
     <tr>
       <td><b>Perfil:</b></td>
-      <td width="475"><select name="idsistemas2" id="idsistemas2" onchange="" class="form-control">
+      <td width="475"><select name="idperfil" id="idperfil" onchange="" class="form-control">
         <option value="">Selecione sistema</option>
         <?php for($i=0;$i<$linha1;$i++){?>
         <option value="<?php echo $rs1[$i]['idperfil'];?>"><?php echo $rs1[$i]['descricao'];?></option>
@@ -54,7 +54,7 @@ Processo('incluir');
 		 if($array[$i]['id_pai']==0){
 	  ?>
           <tr bgcolor="#303641">
-            <td colspan="6"><div align="center"><strong><?php echo utf8_encode("Módulo : ".$array[$i]['modulo']."<br/> ===>>  Menu Pai : ".$array[$i]['menu']);?></strong>
+            <td colspan="6"><div align="center"><strong><?php echo utf8_encode("M&oacute;dulo : ".$array[$i]['modulo']."<br/> ===>>  Menu Pai : ".$array[$i]['menu']);?></strong>
               <input type="checkbox" name="publico<?php echo $i;?>" id="publico<?php echo $i;?>" <?php echo utf8_encode($array[$i]['publico']);?> />
             </div></td>
           </tr>
