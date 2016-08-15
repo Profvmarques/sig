@@ -159,7 +159,6 @@ and configuracao.publico=1 and acessousuario.publico=1 group by configuracao.idm
             }
             
             break;
-
         /* incluir */
         case 'incluir':
 

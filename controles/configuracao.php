@@ -21,14 +21,44 @@ function Processo($Processo) {
             global $rs;
             global $linha1;
             global $rs1;
+            global $linha2;
+            global $rs2;
+            global $array;
 
             $configuracao->consultar("select * from sistemas order by descricao");
             $linha = $configuracao->Linha;
             $rs = $configuracao->Result;
-            
+
             $configuracao->consultar("select * from perfil order by descricao");
             $linha1 = $configuracao->Linha;
             $rs1 = $configuracao->Result;
+
+            if ($_POST['acao'] == 'consultar') {
+                $configuracao->consultar("select modulos.descricao as modulo, menu.* from perfil inner join configuracao on(configuracao.idperfil=perfil.idperfil) 
+inner join menu on(menu.idmenu=configuracao.idmenu) 
+inner join modulos on(modulos.idmodulos=menu.idmodulos)
+order by modulos.idmodulos,menu.ordem;");
+                $linha2 = $configuracao->Linha;
+                $rs2 = $configuracao->Result;
+                $_POST['acao'] = '';
+
+                if ($linha2 > 0) {
+                    for ($i = 0; $i < $linha2; $i++) {
+                        $array[$i]['idmodulos'] = $rs2['idmodulos'];
+                        if ($i > 0 && $array[$i - 1]['idmodulos'] == $rs2['idmodulos']) {
+                            $array[$i]['idmodulos'] = 0;
+                        } else {
+                            $array[$i]['idmodulos'] = $rs2['idmodulos'];
+                        }
+                        $array[$i]['modulo'] = $rs2['modulo'];
+                        $array[$i]['id_pai'] = $rs2['id_pai'];
+                        $array[$i]['ordem'] = $rs2['ordem'];
+                        $array[$i]['class'] = $rs2['class'];
+                        $array[$i]['url'] = $rs2['url'];
+                        $array[$i]['publico'] = $rs2['publico'];
+                    }
+                }
+            }
 
             if ($_POST['ok'] == 'true') {
                 try {

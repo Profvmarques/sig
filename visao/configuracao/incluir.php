@@ -19,17 +19,18 @@ Processo('incluir');
 <form id="form" name="form" method="post" action="">
   <table width="678" border="0" align="center" cellpadding="2" cellspacing="5">
     <tr>
-      <td width="77" class="textos"><b>Sistemas:</b></td>
+      <td width="77"><b>Sistemas:</b></td>
       <td><select name="idsistemas" id="idsistemas" onchange="" class="form-control">
         <option value="">Selecione sistema</option>
         <?php for($i=0;$i<$linha;$i++){?>
         <option value="<?php echo $rs[$i]['idsistemas'];?>"><?php echo $rs[$i]['descricao'];?></option>
         <?php }?>
       </select></td>
-      <td width="94" rowspan="2"><button type="button" class="btn btn-primary" onclick="validar(document.form);"> </i> CONSULTAR</button></td>
+      <td width="94" rowspan="2"><button type="button" class="btn btn-primary" onclick="document.form.acao.value='consultar';"> </i> CONSULTAR</button>
+      <input type="hidden" name="acao" id="acao" /></td>
     </tr>
     <tr>
-      <td class="textos"><b>Perfil:</b></td>
+      <td><b>Perfil:</b></td>
       <td width="475"><select name="idsistemas2" id="idsistemas2" onchange="" class="form-control">
         <option value="">Selecione sistema</option>
         <?php for($i=0;$i<$linha1;$i++){?>
