@@ -15,17 +15,13 @@ class Configuracao {
 //Atributos da classe
     private $idmenu;
     private $idperfil;
-    private $incluir;
-    private $consultar;
-    private $alterar;
-    private $excluir;
-    private $publico;
+    private $permissao;
 
     //Insert
-    public function incluir($incluir, $consultar, $alterar, $excluir, $publico) {
+    public function incluir($idmenu, $idperfil, $permissao) {
         try {
             $dtreg = date('Y-m-d h:i:s');
-            $sql = 'insert into configuracao(incluir,consultar,alterar,excluir,publico) values( :incluir, :consultar, :alterar, :excluir, :publico);';
+            $sql = 'insert into configuracao(idmenu,idperfil,permissao) values( :idmenu, :idperfil, :permissao);';
             $sql = str_replace("'", "\'", $sql);
             $acesso = new Acesso();
             $pdo = $acesso->conexao();
@@ -33,11 +29,9 @@ class Configuracao {
 
             $stmt = $pdo->prepare($sql);
 
-            $stmt->bindParam(':incluir', $incluir);
-            $stmt->bindParam(':consultar', $consultar);
-            $stmt->bindParam(':alterar', $alterar);
-            $stmt->bindParam(':excluir', $excluir);
-            $stmt->bindParam(':publico', $publico);
+            $stmt->bindParam(':idmenu', $idmenu);
+            $stmt->bindParam(':idperfil', $idperfil);
+            $stmt->bindParam(':permissao', $permissao);
             $stmt->execute();
 
             $logs = new Logs();
@@ -72,9 +66,9 @@ class Configuracao {
     }
 
     //Editar
-    public function alterar($idmenu, $idperfil, $incluir, $consultar, $alterar, $excluir, $publico) {
+    public function alterar($idmenu, $idperfil, $permissao) {
         try {
-            $sql = 'update configuracao set idmenu=:idmenu,idperfil=:idperfil,incluir=:incluir,consultar=:consultar,alterar=:alterar,excluir=:excluir,publico=:publico where idperfil= :idperfil';
+            $sql = 'update configuracao set idmenu=:idmenu,idperfil=:idperfil, permissao=:permissao where idperfil= :idperfil and idmenu= :idmenu';
             $sql = str_replace("'", "\'", $sql);
             $acesso = new Acesso();
 
@@ -86,11 +80,7 @@ class Configuracao {
 
             $stmt->bindParam(':idmenu', $idmenu);
             $stmt->bindParam(':idperfil', $idperfil);
-            $stmt->bindParam(':incluir', $incluir);
-            $stmt->bindParam(':consultar', $consultar);
-            $stmt->bindParam(':alterar', $alterar);
-            $stmt->bindParam(':excluir', $excluir);
-            $stmt->bindParam(':publico', $publico);
+            $stmt->bindParam(':permissao', $permissao);
             $stmt->execute();
 
             $logs = new Logs();

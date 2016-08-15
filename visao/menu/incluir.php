@@ -64,7 +64,7 @@ $(function () {
   <table width="1038" border="0" align="center" cellpadding="2" cellspacing="5">
     <tr>
       <td width="65"><b>Sistemas:</b></td>
-      <td width="526"><select name="idsistemas" id="idsistemas" onchange="" class="form-control">
+      <td width="526"><select name="idsistemas" id="idsistemas" onChange="" class="form-control">
           <option value="">Selecione sistema</option>
           <?php for($i=0;$i<$linha;$i++){?>
           <option value="<?php echo $rs[$i]['idsistemas'];?>"><?php echo $rs[$i]['descricao'];?></option>
@@ -73,7 +73,7 @@ $(function () {
     </tr>
     <tr>
       <td><b>M&oacute;dulos :</b></td>
-      <td><select name="idmodulos" id="idmodulos" class="form-control" onchange="submit()">
+      <td><select name="idmodulos" id="idmodulos" class="form-control" onChange="submit()">
           <option value="" selected="selected">Aguardando ...</option>
         </select>      </td>
     </tr>
@@ -153,7 +153,7 @@ $(function () {
     <tr>
       <td colspan="2"><div class="form-actions">
           <div>
-            <button type="button" class="btn btn-primary" onclick="validar(document.form);"> </i> SALVAR</button>
+            <button type="button" class="btn btn-primary" onClick="validar(document.form);"> </i> SALVAR</button>
             <input name="ok" type="hidden" id="ok"/>
             <input name="modulo" type="hidden" id="modulo" value="<?php echo utf8_encode(mysql_result($rs3,0,'am.idmodulos'));?>" />
           </div>

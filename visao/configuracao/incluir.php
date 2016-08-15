@@ -50,40 +50,24 @@ Processo('incluir');
 	  <table width="621" border="0">
 	   <?php 	  
 	    for($i=0;$i<$linha2;$i++){
-		
-		 if($array[$i]['id_pai']==0){
+		 if($array[$i]['idmodulos']==0){
 	  ?>
           <tr bgcolor="#303641">
-            <td colspan="6"><div align="center"><strong><?php echo utf8_encode("M&oacute;dulo : ".$array[$i]['modulo']."<br/> ===>>  Menu Pai : ".$array[$i]['menu']);?></strong>
-              <input type="checkbox" name="publico<?php echo $i;?>" id="publico<?php echo $i;?>" <?php echo utf8_encode($array[$i]['publico']);?> />
+            <td colspan="3"><div align="center"><strong><?php echo ("M&oacute;dulo : ".$array[$i]['modulo']);?></strong>
+              <input type="checkbox" name="publico<?php echo $i;?>" id="publico<?php echo $i;?>" <?php echo ($array[$i]['publico']);?> />
             </div></td>
           </tr>
           <tr>
-            <td width="171" bgcolor="#303641" class="textos_white"><strong>Nome Menu </strong></td>
-            <td width="82" bgcolor="#303641" class="textos_white"><div align="center"><strong>Incluir</strong></div></td>
-            <td width="80" bgcolor="#303641" class="textos_white"><div align="center"><strong>Alterar</strong></div></td>
-            <td width="84" bgcolor="#303641" class="textos_white"><div align="center"><strong>Excluir</strong></div></td>
-            <td width="127" bgcolor="#303641" class="textos_white"><div align="center"><strong>Consulta</strong></div></td>
-            <td width="51" bgcolor="#303641" class="textos_white"><div align="center"><strong>Publico</strong></div></td>
+            <td colspan="2" bgcolor="#303641" class="textos_white"><strong>Nome Menu </strong></td>
+            <td width="116" bgcolor="#303641" class="textos_white"><div align="center"><strong>Permiss&atilde;o</strong></div></td>
           </tr>
           <?php }?>
-		  <?php if($array[$i]['id_pai']!=0){?>
+		  <?php if($array[$i]['idmodulos']>0){?>
           <tr bgcolor="">
-            <td width="171" class="textos"><?php echo utf8_encode($array[$i]['menu']);?></td>
-            <td width="82" class="font_normal"><div align="center">
-                <input type="checkbox" name="incluir<?php echo $i;?>" id="incluir<?php echo $i;?>" <?php echo utf8_encode($array[$i]['incluir']);?> />
-            </div></td>
-            <td width="80" class="font_normal"><div align="center">
-                <input type="checkbox" name="alterar<?php echo $i;?>" id="alterar<?php echo $i;?>" <?php echo utf8_encode($array[$i]['alterar']);?>  />
-            </div></td>
-            <td width="84" class="font_normal"><div align="center">
-                <input type="checkbox" name="apagar<?php echo $i;?>" id="apagar<?php echo $i;?>" <?php echo utf8_encode($array[$i]['apagar']);?>  />
-                </div></td>
-            <td width="127" class="font_normal"><div align="center">
-                <input type="checkbox" name="consultar<?php echo $i;?>" id="consultar<?php echo $i;?>" <?php echo utf8_encode($array[$i]['consultar']);?> />
-            </div></td>
-            <td width="51" class="font_normal"><div align="center">
-              <input type="checkbox" name="publico<?php echo $i;?>" id="publico<?php echo $i;?>" <?php echo utf8_encode($array[$i]['publico']);?> />
+            <td width="171" class="textos"><?php echo $array[$i]['menu'];?></td>
+            <td width="320" class="font_normal">&nbsp;</td>
+            <td width="116" class="font_normal"><div align="center">
+              <input type="checkbox" name="publico<?php echo $i;?>" id="publico<?php echo $i;?>" <?php echo utf8_encode($array[$i]['permissao']);?> />
             </div></td>
           </tr>
 		  <?php }?>

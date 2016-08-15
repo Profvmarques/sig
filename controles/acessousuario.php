@@ -32,9 +32,7 @@ function ProcessoAcessoUsuario($Processo) {
 
             $acessousuario->consultar("select menu.idmenuSubmissao,menu.idmenu,menu.menu, menu.url,menu.class,menu.idmodulos,menu.class,menu.id_pai, menu.publico, 
 menu.ordem, acessousuario.idusuarios as idusu, sistemas.idsistemas as idsis, acessousuario.incluir as aincluir, 
-acessousuario.consultar as aconsultar, acessousuario.alterar as aalterar, acessousuario.excluir as aexcluir,
-configuracao.incluir as cincluir, 
-configuracao.consultar as cconsultar, configuracao.alterar as calterar, configuracao.excluir as cexcluir 
+acessousuario.consultar as aconsultar, acessousuario.alterar as aalterar, acessousuario.excluir as aexcluir
 from perfil inner join configuracao ON(perfil.idperfil=configuracao.idperfil) 
 inner join menu on(menu.idmenu=configuracao.idmenu) 
 inner join usuarios on (usuarios.idperfil=perfil.idperfil) 
@@ -42,7 +40,7 @@ inner join acessousuario on(acessousuario.idmenu=configuracao.idmenu and acessou
 inner join modulos on(modulos.idmodulos=menu.idmodulos) 
 inner join sistemas on(sistemas.idsistemas=modulos.idsistemas) 
 where menu.id_pai=0 and menu.publico=1 
-and configuracao.publico=1 and acessousuario.publico=1 group by configuracao.idmenu ORDER BY menu.ordem;");
+and configuracao.permissao=1 and acessousuario.publico=1 group by configuracao.idmenu ORDER BY menu.ordem;");
             $linhaPai = $acessousuario->Linha;
             $rsPai = $acessousuario->Result;
 
@@ -74,9 +72,7 @@ and configuracao.publico=1 and acessousuario.publico=1 group by configuracao.idm
                 /* ---------------------------------subMenu1----------------------------------------------------- */
                 $acessousuario->consultar("select menu.idmenuSubmissao,menu.idmenu,menu.menu, menu.url,menu.class,menu.idmodulos,menu.class,menu.id_pai, menu.publico, 
 menu.ordem, acessousuario.idusuarios as idusu, sistemas.idsistemas as idsis, acessousuario.incluir as aincluir, 
-acessousuario.consultar as aconsultar, acessousuario.alterar as aalterar, acessousuario.excluir as aexcluir,
-configuracao.incluir as cincluir, 
-configuracao.consultar as cconsultar, configuracao.alterar as calterar, configuracao.excluir as cexcluir 
+acessousuario.consultar as aconsultar, acessousuario.alterar as aalterar, acessousuario.excluir as aexcluir 
 from perfil inner join configuracao ON(perfil.idperfil=configuracao.idperfil) 
 inner join menu on(menu.idmenu=configuracao.idmenu) 
 inner join usuarios on (usuarios.idperfil=perfil.idperfil) 
@@ -84,7 +80,7 @@ inner join acessousuario on(acessousuario.idmenu=configuracao.idmenu and acessou
 inner join modulos on(modulos.idmodulos=menu.idmodulos) 
 inner join sistemas on(sistemas.idsistemas=modulos.idsistemas) 
 where menu.id_pai=1 and menu.publico=1 and menu.idmodulos=" . $array[$i]['idmodulos'] . " and modulos.idsistemas=" . $array[$i]['idsistemas'] . "
-and configuracao.publico=1 and acessousuario.publico=1 group by configuracao.idmenu ORDER BY menu.ordem;");
+and configuracao.permissao=1 and acessousuario.publico=1 group by configuracao.idmenu ORDER BY menu.ordem;");
                 $linhaSm1 = $acessousuario->Linha;
                 $rsSm1 = $acessousuario->Result;
 
@@ -116,9 +112,7 @@ and configuracao.publico=1 and acessousuario.publico=1 group by configuracao.idm
                     /* ---------------------------------subMenu2----------------------------------------------------- */
                     $acessousuario->consultar("select menu.idmenuSubmissao,menu.idmenu,menu.menu, menu.url,menu.class,menu.idmodulos,menu.class,menu.id_pai, menu.publico, 
 menu.ordem, acessousuario.idusuarios as idusu, sistemas.idsistemas as idsis, acessousuario.incluir as aincluir, 
-acessousuario.consultar as aconsultar, acessousuario.alterar as aalterar, acessousuario.excluir as aexcluir,
-configuracao.incluir as cincluir, 
-configuracao.consultar as cconsultar, configuracao.alterar as calterar, configuracao.excluir as cexcluir 
+acessousuario.consultar as aconsultar, acessousuario.alterar as aalterar, acessousuario.excluir as aexcluir
 from perfil inner join configuracao ON(perfil.idperfil=configuracao.idperfil) 
 inner join menu on(menu.idmenu=configuracao.idmenu) 
 inner join usuarios on (usuarios.idperfil=perfil.idperfil) 
@@ -126,7 +120,7 @@ inner join acessousuario on(acessousuario.idmenu=configuracao.idmenu and acessou
 inner join modulos on(modulos.idmodulos=menu.idmodulos) 
 inner join sistemas on(sistemas.idsistemas=modulos.idsistemas) 
 where menu.id_pai=2 and menu.publico=1 and menu.idmodulos=" . $array1[$i]['idmodulos'] . " and modulos.idsistemas=" . $array1[$i]['idsistemas'] . "
-and configuracao.publico=1 and acessousuario.publico=1 group by configuracao.idmenu ORDER BY menu.ordem;");
+and configuracao.permissao=1 and acessousuario.publico=1 group by configuracao.idmenu ORDER BY menu.ordem;");
                     $linhaSm2 = $acessousuario->Linha;
                     $rsSm2 = $acessousuario->Result;
 
@@ -159,6 +153,7 @@ and configuracao.publico=1 and acessousuario.publico=1 group by configuracao.idm
             }
             
             break;
+
         /* incluir */
         case 'incluir':
 

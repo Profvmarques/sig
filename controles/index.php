@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 require_once('classes/usuarios.php');
 require_once('classes/util.php');
@@ -39,7 +38,7 @@ function Processo($Processo) {
                     $pg = base64_encode("visao/painel/incluirAdm.php");
                     $titulo = base64_encode("Painel de Sistemas");
                     
-                    $util->redirecionamentopage("default.php?pg=" . $pg . "&titulo=" . $titulo);
+                    $util->redirecionamentopage("default.php?pg=" . $pg . "&titulo=" . $titulo);exit;
                 } else {
                     $util->msgbox("Login ou senha errado!");
                 }
