@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 require_once('classes/configuracao.php');
 require_once('classes/util.php');
@@ -23,7 +24,7 @@ function Processo($Processo) {
             global $linha2;
             global $rs2;
             global $array;
-            $array=array();
+            $array = array();
 
             $configuracao->consultar("select * from sistemas order by descricao");
             $linha = $configuracao->Linha;
@@ -32,29 +33,28 @@ function Processo($Processo) {
             $configuracao->consultar("select * from perfil order by descricao");
             $linha1 = $configuracao->Linha;
             $rs1 = $configuracao->Result;
-                
+
             if ($_POST['acao'] == 'consultar') {
-   $configuracao->consultar("select modulos.descricao as modulo, configuracao.permissao, menu.* from perfil inner join configuracao on(configuracao.idperfil=perfil.idperfil) 
+                $configuracao->consultar("select modulos.descricao as modulo, configuracao.permissao, menu.* from perfil inner join configuracao on(configuracao.idperfil=perfil.idperfil) 
 inner join menu on(menu.idmenu=configuracao.idmenu) 
 inner join modulos on(modulos.idmodulos=menu.idmodulos) 
-where configuracao.idperfil=".$_POST['idperfil']." and modulos.idsistemas=".$_POST['idsistemas']."
+where configuracao.idperfil=" . $_POST['idperfil'] . " and modulos.idsistemas=" . $_POST['idsistemas'] . "
 order by modulos.idmodulos,menu.ordem;");
                 $linha2 = $configuracao->Linha;
-                $rs2 = $configuracao->Result;                
-                
+                $rs2 = $configuracao->Result;
                 $_POST['acao'] = '';
 
                 if ($linha2 > 0) {
                     for ($i = 0; $i < $linha2; $i++) {
-                        
-                        if ($i > 0 && $array[$i-1]['idmodulos'] == $rs2[$i]['idmodulos']) {
-                            $array[$i]['idmodulos'] = 0;
+                        $array[$i]['idmodulos'] = $rs2[$i]['idmodulos'];
+                        if ($i <= 0) {
+                            $array[$i]['idmodulos'] = $rs2[$i]['idmodulos'];
                         } else {
-                            $array[$i]['idmodulos'] = $rs2[$i]['idmodulos'];                            
+                            $array[$i]['idmodulos'] = 0;
                         }
                         $array[$i]['modulo'] = $rs2[$i]['modulo'];
                         $array[$i]['idmenu'] = $rs2[$i]['idmenu'];
-                        $array[$i]['menu'] = $rs2[$i]['menu'];                       
+                        $array[$i]['menu'] = $rs2[$i]['menu'];
                         $array[$i]['permissao'] = $rs2[$i]['permissao'];
                     }
                 }

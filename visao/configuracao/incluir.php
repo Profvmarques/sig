@@ -50,7 +50,7 @@ Processo('incluir');
 	  <table width="621" border="0">
 	   <?php 	  
 	    for($i=0;$i<$linha2;$i++){
-		 if($array[$i]['idmodulos']==0){
+		 if($array[$i]['idmodulos']>0){
 	  ?>
           <tr bgcolor="#303641">
             <td colspan="3"><div align="center"><strong><?php echo ("M&oacute;dulo : ".$array[$i]['modulo']);?></strong>
@@ -62,7 +62,7 @@ Processo('incluir');
             <td width="116" bgcolor="#303641" class="textos_white"><div align="center"><strong>Permiss&atilde;o</strong></div></td>
           </tr>
           <?php }?>
-		  <?php if($array[$i]['idmodulos']>0){?>
+		  <?php if($array[$i]['idmodulos']==0 || $array[$i]['id_pai']==0){?>
           <tr bgcolor="">
             <td width="171" class="textos"><?php echo $array[$i]['menu'];?></td>
             <td width="320" class="font_normal">&nbsp;</td>
