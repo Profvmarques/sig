@@ -60,7 +60,7 @@ order by modulos.idmodulos,menu.ordem;");
                 }
             }
             //print_r($array);exit; 
-            if ($_POST['ok'] == 'true') {
+            if ($_POST['ok'] == 'true'){
                 try {
                     //Chamar  
                     $configuracao->consultar('BEGIN');
@@ -119,7 +119,7 @@ order by modulos.idmodulos,menu.ordem;");
                     $configuracao->consultar('COMMIT');
                     $util->msgbox('REGISTRO SALVO COM SUCESSO!');
                     $util->redirecionamentopage('default.php?pg=' . base64_encode('view/configuracao/consulta.php') . '&titulo=' . base64_encode('Consulta de Configuracao'));
-                } catch (Exception $ex) {
+                } catch(Exception $ex) {
                     $configuracao->consultar('ROLLBACK');
                     $util->msgbox('Falha de operacao');
                 }
