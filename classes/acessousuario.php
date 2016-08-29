@@ -21,10 +21,10 @@ class AcessoUsuario {
     private $excluir;
 
     //Insert
-    public function incluir($idusuarios, $incluir, $consultar, $alterar, $excluir) {
+    public function incluir($idmenu, $idusuarios, $incluir, $consultar, $alterar, $excluir) {
         try {
             $dtreg = date('Y-m-d h:i:s');
-            $sql = 'insert into acessousuario(idusuarios,incluir,consultar,alterar,excluir) values( :idusuarios, :incluir, :consultar, :alterar, :excluir);';
+            $sql = 'insert into acessousuario(idmenu,idusuarios,incluir,consultar,alterar,excluir) values( :idmenu, :idusuarios, :incluir, :consultar, :alterar, :excluir);';
             $sql = str_replace("'", "\'", $sql);
             $acesso = new Acesso();
             $pdo = $acesso->conexao();
@@ -32,6 +32,7 @@ class AcessoUsuario {
 
             $stmt = $pdo->prepare($sql);
 
+            $stmt->bindParam(':idmenu', $idmenu);
             $stmt->bindParam(':idusuarios', $idusuarios);
             $stmt->bindParam(':incluir', $incluir);
             $stmt->bindParam(':consultar', $consultar);
@@ -104,6 +105,22 @@ class AcessoUsuario {
         $acesso->query($sql);
         $this->Linha = $acesso->linha;
         $this->Result = $acesso->result;
+    }
+
+    public function obterAcessoUsuario($idmenu, $idusuarios) {
+        $acesso = new Acesso();
+        $acesso->conexao();
+        if ($idmenu > 0 && $idperfil > 0) {
+            $sql = "select * from acessousuario where idmenu=" . $idmenu . " and idusuarios=" . $idusuarios;
+            $acesso->query($sql);
+            $linha = $acesso->linha;
+            $rs = $acesso->result;
+        }
+        if ($linha > 0) {
+            $this->achou = 'SIM';
+        } else {
+            $this->achou = "NAO";
+        }
     }
 
 }

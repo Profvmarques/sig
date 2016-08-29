@@ -98,6 +98,22 @@ class Configuracao {
         $this->Result = $acesso->result;
     }
 
+    public function obterConfiguracao($idmenu, $idperfil) {
+        $acesso = new Acesso();
+        $acesso->conexao();
+        if ($idmenu > 0 && $idperfil > 0) {
+            $sql = "select * from configuracao where idmenu=" . $idmenu . " and idperfil=" . $idperfil;
+            $acesso->query($sql);
+            $linha = $acesso->linha;
+            $rs = $acesso->result;
+        }
+        if ($linha > 0) {
+             $this->achou = 'SIM';
+        } else {
+            $this->achou = "NAO";
+        }
+    }
+
 }
 
 ?>

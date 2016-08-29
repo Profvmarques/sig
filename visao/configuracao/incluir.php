@@ -16,6 +16,18 @@ Processo('incluir');
 }*/
 -->
 </style>
+<script>
+function selecionar_tudo(){
+   for (i=0;i<document.form.elements.length;i++)
+      if(document.form.elements[i].type == "checkbox")
+         document.f1.elements[i].checked=1;
+} 
+function deselecionar_tudo(){
+   for (i=0;i<document.f1.elements.length;i++)
+      if(document.f1.elements[i].type == "checkbox")
+         document.f1.elements[i].checked=0
+} 
+</script>
 <form id="form" name="form" method="post" action="">
   <table width="678" border="0" align="center" cellpadding="2" cellspacing="5">
     <tr>
@@ -54,7 +66,7 @@ Processo('incluir');
 	  ?>
           <tr bgcolor="#303641">
             <td colspan="3"><div align="center"><strong><?php echo ("M&oacute;dulo : ".$array[$i]['modulo']);?></strong>
-              <input type="checkbox" name="publico<?php echo $i;?>" id="publico<?php echo $i;?>" <?php echo ($array[$i]['publico']);?> />
+              <input type="checkbox" name="publico<?php echo $i;?>" id="publico<?php echo $i;?>" <?php echo ($array[$i]['publico']);?>  onclick="selecionar_tudo();"/>
             </div></td>
           </tr>
           <tr>

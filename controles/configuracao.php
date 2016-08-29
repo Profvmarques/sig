@@ -2,6 +2,7 @@
 
 session_start();
 require_once('classes/configuracao.php');
+require_once('classes/acessousuario.php');
 require_once('classes/util.php');
 require_once('classes/ocorrencias.php');
 
@@ -9,6 +10,7 @@ function Processo($Processo) {
     /* Atributos Globais */
     $util = new Util();
     $configuracao = new Configuracao();
+    $acessoUsuario = new AcessoUsuario();
     $ocorrencias = new Ocorrencias();
 
     /* Switch processos */
@@ -43,30 +45,42 @@ order by modulos.idmodulos,menu.ordem;");
                 $linha2 = $configuracao->Linha;
                 $rs2 = $configuracao->Result;
                 $_POST['acao'] = '';
-
-                if ($linha2 > 0) {
-                    for ($i = 0; $i < $linha2; $i++) {
-                        $array[$i]['idmodulos'] = $rs2[$i]['idmodulos'];
-                        if ($i <= 0) {
-                            $array[$i]['idmodulos'] = $rs2[$i]['idmodulos'];
-                        } else {
-                            $array[$i]['idmodulos'] = 0;
-                        }
-                        $array[$i]['modulo'] = $rs2[$i]['modulo'];
-                        $array[$i]['idmenu'] = $rs2[$i]['idmenu'];
-                        $array[$i]['menu'] = $rs2[$i]['menu'];
-                        $array[$i]['permissao'] = $rs2[$i]['permissao'];
-                    }
-                }
             }
             //print_r($array);exit; 
-            if ($_POST['ok'] == 'true'){
+            if ($_POST['ok'] == 'true') {
                 try {
                     //Chamar  
                     $configuracao->consultar('BEGIN');
-                    $configuracao->incluir(
-                            $_POST['incluir'], $_POST['consultar'], $_POST['alterar'], $_POST['excluir'], $_POST['publico']
-                    );
+                    if (sizeof($_POST['idmenu']) > 0) {
+                        /* Para configuraçãop de acesso de usuarios mediante perfil */
+                        for ($i = 0; $i < $linha2; $i++) {
+                            $idmenu = $rs2[$i]['idmenu'];
+                            $permissao = $rs2[$i]['permissao'];
+                            $configuracao->obterConfiguracao($idmenu, $_POST['idperfil']);
+                            if ($configuracao->achou == 'NAO') {
+                                $configuracao->incluir($idmenu, $_POST['idperfil'], $permissao);
+                            }
+
+                            /* Para permissao de acesso de usuarios */
+                            $configuracao->consultar("select m.idmenu as idMenu, u.idusuarios as idUsuarios from configuracao c inner JOIN menu m on(c.idmenu=m.idmenu) 
+inner join perfil p on(p.idperfil=c.idperfil) 
+inner join usuarios u on(u.idperfil=p.idperfil) 
+where p.idperfil=".$_POST['idperfil']);
+                            $linha3 = $configuracao->Linha;
+                            $rs3 = $configuracao->Result;
+
+                            for ($i = 0; $i < $linha3; $i++) {
+                                $idusuarios = $rs3[$i]['idUsuarios'];
+                                $idMenu = $rs3[$i]['idMenu'];
+                                //$permissao = $rs2[$i]['permissao'];
+                                $acessoUsuario->obterAcessoUsuario($idmenu, $idusuarios);
+                                if ($acessoUsuario->achou == 'NAO') {
+                                    $acessoUsuario->incluir($idmenu, $idMenu, 1,1,1,1);
+                                }
+                            }
+                        }
+                    }
+
                     $configuracao->consultar('COMMIT');
                     $util->msgbox('REGISTRO SALVO COM SUCESSO!');
                     $util->redirecionamentopage('default.php?pg=' . base64_encode('visao/configuracao/consulta.php') . '&titulo=' . base64_encode('Consulta de Configuração'));
@@ -119,7 +133,7 @@ order by modulos.idmodulos,menu.ordem;");
                     $configuracao->consultar('COMMIT');
                     $util->msgbox('REGISTRO SALVO COM SUCESSO!');
                     $util->redirecionamentopage('default.php?pg=' . base64_encode('view/configuracao/consulta.php') . '&titulo=' . base64_encode('Consulta de Configuracao'));
-                } catch(Exception $ex) {
+                } catch (Exception $ex) {
                     $configuracao->consultar('ROLLBACK');
                     $util->msgbox('Falha de operacao');
                 }
